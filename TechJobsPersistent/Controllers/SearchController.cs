@@ -55,8 +55,8 @@ namespace TechJobsPersistent.Controllers
                 if (searchType == "employer")
                 {
                     jobs = context.Jobs
-                        .Include(j => j.Employer)
                         .Where(j => j.Employer.Name == searchTerm)
+                        .Include(j => j.Employer)
                         .ToList();
 
                     foreach (Job job in jobs)
@@ -98,6 +98,8 @@ namespace TechJobsPersistent.Controllers
             ViewBag.columns = ListController.ColumnChoices;
             ViewBag.title = "Jobs with " + ListController.ColumnChoices[searchType] + ": " + searchTerm;
             ViewBag.jobs = displayJobs;
+            ViewBag.searchType = searchType;
+            ViewBag.searchTerm = searchTerm;
 
             return View("Index");
         }
